@@ -30,6 +30,31 @@ function verifyNumberMovies() {
 
 }
 
+// Вопросы о любимых жанрах
+function writeYourGenres() {
+
+    for (let i = 1; i <= 3; i++) {
+       const favouriteGenre = prompt(`Ваш любимый жанр под номером ${i}`);
+        if (!favouriteGenre) {
+            writeYourGenres();
+        } else {
+            personalMovieDB.genres.push(favouriteGenre);
+        }
+    }
+
+	// ----------------------------------------------------------------------
+	
+	// Попытка предотвратить дублирование элементов в массиве
+
+	// personalMovieDB.genres.forEach(function(item) {
+	// 	if (item ) {
+	// 		personalMovieDB.genres.splice(0, personalMovieDB.genres.length);
+	// 	}
+	//  }); 
+	// ----------------------------------------------------------------------
+
+}
+
 // Задать вопросы для пользователей
 function surveyQuestions(maxLengthMovie) {
 	
@@ -86,21 +111,41 @@ let personalMovieDB = {
 // Проверить значения просмторенных фильмов 
 verifyNumberMovies();
 
-// Цикл для опроса пользователей
-while(surveyMovie == true) {	
+// Опросить пользователей
+function rememberMyFilms() {
 
-	// Задать вопросы про фильмы
-	surveyQuestions(); 
-	
-	// Возможность добавить ещё фильмы
-	surveyMovie = confirm("Добавить фильм?"); 
+    // Цикл для опроса пользователей
+    while(surveyMovie == true) {	
+
+        // Задать вопросы про фильмы
+        surveyQuestions(); 
+        
+        // Возможность добавить ещё фильмы
+        surveyMovie = confirm("Добавить фильм?"); 
+
+    }
 
 }
+
+// Задать вопросы про жанры
+writeYourGenres();
+
+// Опросить пользователей
+rememberMyFilms();
 
 // Проверить количества введённых фильмов
 countNumberMovies();
 
 // Вывод содержимого объекта в консоль
-console.log(personalMovieDB);
+function showMyDB(hidden) {
 
-//zzug0284
+	if (!hidden) {
+		console.log(personalMovieDB);
+	} else {
+        console.log("Ошибка!");
+    }
+
+}
+
+// Вывести содержимого объекта в консоль
+showMyDB(personalMovieDB.privat); 
